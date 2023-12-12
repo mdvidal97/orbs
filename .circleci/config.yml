@@ -1,0 +1,48 @@
+version: 2.1
+
+orbs:
+  slack: circleci/slack@4.12.5
+
+jobs:
+  notify:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - slack/notify:
+          channel: "#general"
+          custom: |
+            {
+              "block": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "This is Daniela Vidal submitting the Slack assignment.",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
+
+  build:
+    docker:
+      - image: circleci/node:latest # Set up a Node.js executor
+    steps:
+      - checkout # Checkout the repository code
+      - run: npm install # Install project dependencies
+      - run: npm test # Run unit tests using your testing framework
+      - run:
+          name: Generate Code Coverage Report
+          command: npm run test:coverage
+      - store_artifacts:
+          path: coverage-report
+
+workflows:
+  send_notification:
+    jobs:
+      - notify:
+          context: slack-secrets
+      - build:
