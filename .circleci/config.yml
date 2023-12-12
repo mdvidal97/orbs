@@ -36,9 +36,13 @@ jobs:
       - run: npm test # Run unit tests using your testing framework
       - run:
           name: Generate Code Coverage Report
-          command: npm run test:coverage
+          command: |
+            npm run test:coverage
+            npm run test:coverage > coverage.txt
+            mkdir -p /tmp/artifacts
+            cp coverage.txt /tmp/artifacts
       - store_artifacts:
-          path: coverage-report
+          path: /tmp/artifacts
 
 workflows:
   send_notification:
