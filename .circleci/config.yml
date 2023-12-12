@@ -12,7 +12,7 @@ jobs:
           channel: "#general"
           custom: |
             {
-              "block": [
+              "blocks": [
                 {
                   "type": "section",
                   "fields": [
