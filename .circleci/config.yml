@@ -41,9 +41,8 @@ jobs:
           path: coverage-report
 
 workflows:
-  version: 2.1
   send_notification:
     jobs:
       - notify:
           context: slack-secrets
-      - build:
+      - build
