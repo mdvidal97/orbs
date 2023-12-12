@@ -41,7 +41,6 @@ jobs:
           path: coverage-report
 
 workflows:
-  version: 2
   send_notification:
     jobs:
       - notify:
