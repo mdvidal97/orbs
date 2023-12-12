@@ -32,7 +32,6 @@ jobs:
       - image: circleci/node:latest # Set up a Node.js executor
     steps:
       - checkout # Checkout the repository code
-      - run: npm audit fix
       - run: npm install # Install project dependencies
       - run: npm test # Run unit tests using your testing framework
       - run:
